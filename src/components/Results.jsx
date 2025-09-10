@@ -54,11 +54,11 @@ const Results = ({ result }) => {
           </div>
 
           {/* Stats */}
-          <div className='border-1 p-6 rounded-xl w-[500px] mx-auto'>
+          <div className='border-1 p-6 rounded-xl  w-full md:w-3/4 mx-auto'>
             <p className='text-center mb-2'>Out of 10 Question</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600 mb-1">
+                <div className="text-xl font-bold text-green-600 mb-1">
                   {result.correctAnswers}
                   <span className="text-sm"> Correct</span>
                 </div>
@@ -66,8 +66,7 @@ const Results = ({ result }) => {
               </div>
 
               <div className="text-center">
-
-                <div className="text-2xl font-bold text-red-600 mb-1">
+                <div className="text-xl font-bold text-red-600 mb-1">
                   {result.totalQuestions - result.correctAnswers - result.unansweredQuestions}
                   <span className=" text-sm"> Incorrect</span>
                 </div>
@@ -75,8 +74,7 @@ const Results = ({ result }) => {
               </div>
 
               <div className="text-center">
-
-                <div className="text-2xl font-bold text-gray-600 mb-1">
+                <div className="text-xl font-bold text-gray-600 mb-1">
                   {result.unansweredQuestions}
                   <span className=" text-sm"> Not answered</span>
                 </div>
@@ -96,16 +94,6 @@ const Results = ({ result }) => {
             Retake Quiz
           </button>
         </div>
-
-        {/* Achievement Badge */}
-        {percentage >= 80 && (
-          <div className="mt-8 text-center">
-            <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full font-medium shadow-lg">
-              <Trophy className="w-5 h-5 mr-2" />
-              Quiz Master Achievement Unlocked!
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
