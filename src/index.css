@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.text-dark-pink {
+    @apply text-[rgb(185,43,93,1)];
+}
+
+.bg-gray-100 {
+    @apply bg-[rgb(243,243,243,1)];
+}
