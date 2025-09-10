@@ -23,21 +23,20 @@ const Timer = ({ duration, onTimeUp, isActive }) => {
     return () => clearInterval(timer);
   }, [isActive, onTimeUp]);
 
+    const minutes = Math.floor(timeLeft / 60);
+  const seconds = String(timeLeft % 60).padStart(2, "0");
+
   const getProgressColor = () => {
     if (timeLeft > 6) return 'text-green-600';
     if (timeLeft > 3) return 'text-yellow-600';
     return 'text-red-600';
   };
 
-  const getProgressWidth = () => {
-    return (timeLeft / duration) * 100;
-  };
-
   return (
     <div className="flex items-center space-x-3">
       
       <span className={`text-sm font-medium ${getProgressColor()} bg-gray-100 px-2 py-1 rounded-lg`}>
-        {timeLeft > 0 ? `${timeLeft}` : 'Time up!'}
+        {timeLeft > 0 ? `${minutes}:${seconds}` : 'Time up!'}
       </span>
     </div>
   );

@@ -77,7 +77,7 @@ const Quiz = ({ questions, category, userName, onQuizComplete }) => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Timer
-                  // duration={10}
+                  duration={10}
                   onTimeUp={handleTimeUp}
                   isActive={true}
                   key={currentQuestionIndex}
@@ -103,13 +103,13 @@ const Quiz = ({ questions, category, userName, onQuizComplete }) => {
             <div className="flex space-x-3">
               <button
                 onClick={handleNextQuestion}
-                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                className="px-6 py-3 bg-dark-pink text-white rounded-xl font-medium hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
               >
                 Next
               </button>
               <button
                 onClick={handleSkipQuestion}
-                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                className="px-6 py-3 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
               >
                 Skip
               </button>

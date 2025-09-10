@@ -1,4 +1,3 @@
-import React from 'react';
 import { Trophy } from 'lucide-react';
 
 const Results = ({ result }) => {
@@ -7,7 +6,7 @@ const Results = ({ result }) => {
   const getPerformanceFeedback = () => {
     if (percentage >= 80) {
       return {
-        title: "🎉 Outstanding Performance!",
+        title: "Great Job!",
         message: "You've mastered this topic! Your knowledge is impressive.",
         color: "text-green-600",
         bgColor: "bg-green-100",
@@ -15,23 +14,15 @@ const Results = ({ result }) => {
       };
     } else if (percentage >= 60) {
       return {
-        title: "👏 Great Job!",
+        title: "Well Done!",
         message: "You have a solid understanding. Keep up the excellent work!",
         color: "text-blue-600",
         bgColor: "bg-blue-100",
         borderColor: "border-blue-200"
       };
-    } else if (percentage >= 40) {
-      return {
-        title: "📚 Good Effort!",
-        message: "You're on the right track. A bit more practice will help you improve!",
-        color: "text-yellow-600",
-        bgColor: "bg-yellow-100",
-        borderColor: "border-yellow-200"
-      };
     } else {
       return {
-        title: "💪 Keep Learning!",
+        title: "Keep Practicing!",
         message: "Every expert was once a beginner. Practice makes perfect!",
         color: "text-orange-600",
         bgColor: "bg-orange-100",
@@ -46,25 +37,20 @@ const Results = ({ result }) => {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         {/* Results Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-4">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full mb-4">
             <Trophy className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Quiz Complete!
-          </h1>
-          <p className="text-gray-600 capitalize text-lg">
-            {result.category.replace(/([A-Z])/g, ' $1')} Quiz Results
-          </p>
         </div>
 
         {/* Score Display */}
         <div className=" p-8 mb-6">
           <div className="text-center mb-8">
-            <div className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            <h3 className="text-gray-600 text-xl">Your Score</h3>
+            <div className={`text-6xl font-bold mb-2 ${feedback.color}`}>
               {percentage}%
             </div>
-            <p className="text-gray-600 text-lg">Final Score</p>
+            <h4 className="text-2xl font-bold ">{feedback.title}</h4>
           </div>
 
           {/* Stats */}

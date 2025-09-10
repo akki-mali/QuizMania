@@ -38,10 +38,10 @@ const WelcomePage = ({ onStartQuiz }) => {
               <p className="text-gray-600 text-lg mb-2 ">
                 Please read all the rules about this quiz before you start.
               </p>
-              <button className="text-dark-pink font-medium" onClick={()=> setIsRulesOpen(true)}>Quiz rules</button>
+              <button className="text-dark-pink font-medium" onClick={() => setIsRulesOpen(true)}>Quiz rules</button>
             </div>
           </div>
-          <RulesModal  isOpen={isRulesOpen} onClose={()=>setIsRulesOpen(false)}/>
+          <RulesModal isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
 
           {/* Form */}
           <div className="space-y-8 w-full md:w-3/4 mx-auto">
@@ -68,20 +68,35 @@ const WelcomePage = ({ onStartQuiz }) => {
                 {topics.map((topic) => (
                   <label
                     key={topic.id}
-                    className="flex items-center p-4 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                    className="flex items-center p-4 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors peer-checked:border-pink-600 peer-checked:bg-pink-50"
                   >
+                    {/* Hidden radio input */}
                     <input
                       type="radio"
                       name="topic"
                       value={topic.id}
                       checked={selectedTopic === topic.id}
                       onChange={(e) => setSelectedTopic(e.target.value)}
-                      className="w-5 h-5 text-pink-600 border-gray-300 focus:ring-pink-500"
+                      className="peer hidden"
                     />
-                    <span className="ml-3 text-gray-700 font-medium">
-                      {topic.label}
+
+                    {/* Circle with tick */}
+                    <span className="w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-400 peer-checked:border-pink-600 peer-checked:bg-pink-600">
+                      <svg width="14" height="20" viewBox="0 0 20 20" fill="none">
+                        <path
+                          d="M5 10.5L9 14.5L15 7.5"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
                     </span>
+
+                    {/* Option label text */}
+                    <span className="ml-3 text-gray-700 font-medium">{topic.label}</span>
                   </label>
+
                 ))}
               </div>
             </div>
@@ -92,8 +107,8 @@ const WelcomePage = ({ onStartQuiz }) => {
                 onClick={handleStartQuiz}
                 disabled={!isFormValid}
                 className={`px-8 py-3 rounded-lg font-medium transition-all ${isFormValid
-                    ? 'bg-dark-pink hover:bg-pink-600 text-white shadow-lg hover:shadow-xl '
-                    : 'bg-dark-pink text-white cursor-not-allowed opacity-50 hover:shadow-none'
+                  ? 'bg-dark-pink hover:bg-pink-600 text-white shadow-lg hover:shadow-xl '
+                  : 'bg-dark-pink text-white cursor-not-allowed opacity-50 hover:shadow-none'
                   }`}
               >
                 Start Quiz
