@@ -1,31 +1,63 @@
+import React, { useState } from "react"
+import { QuizData } from "../data/quizData.js"
+import Quiz from "../components/Quiz"
+import Results from "../components/Results"
 import Header from "../components/Header"
+import WelcomePage from "../components/WelcomePage";
 
 const App = () => {
+  const [currentState, setCurrentState] = useState('welcome');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [userName, setUserName] = useState('');
+  const [quizResult, setQuizResult] = useState(null);
+
+   const handleStartQuiz = (name, category) => {
+    setUserName(name);
+    setSelectedCategory(category);
+    setCurrentState('quiz');
+  };
+
+  const handleQuizComplete = (result) => {
+    setQuizResult(result);
+    setCurrentState('results');
+  };
+
+  const handleRestart = () => {
+    setCurrentState('welcome');
+    setSelectedCategory('');
+    setUserName('');
+    setQuizResult(null);
+  };
+
+  const renderCurrentState = () => {
+    switch (currentState) {
+      case 'welcome':
+        return <WelcomePage onStartQuiz={handleStartQuiz} />;
+      case 'quiz':
+        const quizData = QuizData[selectedCategory];
+        return (
+          <Quiz
+            questions={quizData.questions}
+            category={selectedCategory}
+            userName={userName}
+            onQuizComplete={handleQuizComplete}
+          />
+        );
+      case 'results':
+        return quizResult ? (
+          <Results result={quizResult} onRestart={handleRestart} />
+        ) : null;
+      default:
+        return <WelcomePage onStartQuiz={handleStartQuiz} />;
+    }
+  };
+
   return (
     <>
-      <Header/>
-      <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-2xl mx-auto text-center space-y-8">
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-6xl font-normal">
-              Welcome to <span className="text-dark-pink">QUIZ</span>
-              <span className="text-dark-pink font-bold">Mania</span>
-            </h1>
-            <div className="text-start  rounded-lg p-4 w-[600px] mx-auto bg-gray-100">
-              <p className="text-muted-foreground text-lg ">
-                Please read all the rules about this quiz before you start.
-              </p>
-              <button className="text-primary hover:underline font-medium  text-dark-pink ">Quiz rules</button>
-            </div>
-           
-            
-          </div>
-
-  
-        </div>
-      </div>
+      <Header />
+        {renderCurrentState()}
     </>
-    
+
   )
 }
 export default App
