@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import RulesModal from '../components/RulesModal'
+import React, { useState , Suspense, lazy } from 'react';
+const RulesModal = lazy(() => import('../components/RulesModal'))
 
 const topics = [
   { id: 'javascript', label: 'Javascript Basic' },
@@ -41,7 +41,9 @@ const WelcomePage = ({ onStartQuiz }) => {
               <button className="text-dark-pink font-medium" onClick={() => setIsRulesOpen(true)}>Quiz rules</button>
             </div>
           </div>
-          <RulesModal isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
+          <Suspense fallback={null}>
+            <RulesModal isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
+          </Suspense>
 
           {/* Form */}
           <div className="space-y-8 w-full md:w-3/4 mx-auto">

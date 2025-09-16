@@ -11,3 +11,6 @@
 .bg-gray-100 {
     @apply bg-[rgb(243,243,243,1)];
 }
+.border-gray {
+    @apply border-[rgba(217,217,217,1)];
+}

@@ -3,7 +3,7 @@ import Question from './Question';
 import Timer from './Timer';
 import ProgressBar from './ProgressBar';
 
-const Quiz = ({ questions, category, userName, onQuizComplete }) => {
+const Quiz = ({ questions, category, onQuizComplete }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState(new Array(questions.length).fill(null));
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -66,7 +66,6 @@ const Quiz = ({ questions, category, userName, onQuizComplete }) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-3xl">
-        {/* Header */}
         <div className="p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <div>

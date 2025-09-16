@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import { QuizData } from "../data/quizData.js"
-import Quiz from "../components/Quiz"
-import Results from "../components/Results"
+import React, { useState, Suspense, lazy } from "react"
 import Header from "../components/Header"
 import WelcomePage from "../components/WelcomePage";
+
+const Quiz = lazy(() => import("../components/Quiz"))
+const Results = lazy(() => import("../components/Results"))
 
 const App = () => {
   const [currentState, setCurrentState] = useState('welcome');
@@ -34,19 +34,22 @@ const App = () => {
       case 'welcome':
         return <WelcomePage onStartQuiz={handleStartQuiz} />;
       case 'quiz':
-        const quizData = QuizData[selectedCategory];
         return (
-          <Quiz
-            questions={quizData.questions}
-            category={selectedCategory}
-            userName={userName}
-            onQuizComplete={handleQuizComplete}
-          />
+          <Suspense fallback={null}>
+            <AsyncQuiz
+              selectedCategory={selectedCategory}
+              onQuizComplete={handleQuizComplete}
+            />
+          </Suspense>
         );
       case 'results':
-        return quizResult ? (
-          <Results result={quizResult} onRestart={handleRestart} />
-        ) : null;
+        return (
+          <Suspense fallback={null}>
+            {quizResult ? (
+              <Results result={quizResult} onRestart={handleRestart} />
+            ) : null}
+          </Suspense>
+        );
       default:
         return <WelcomePage onStartQuiz={handleStartQuiz} />;
     }
@@ -61,3 +64,27 @@ const App = () => {
   )
 }
 export default App
+
+function AsyncQuiz({ selectedCategory, onQuizComplete }) {
+  const [questions, setQuestions] = React.useState(null)
+
+  React.useEffect(() => {
+    let cancelled = false
+    import("../data/quizData.js").then(module => {
+      if (cancelled) return
+      const quizData = module.QuizData[selectedCategory]
+      setQuestions(quizData?.questions ?? [])
+    })
+    return () => { cancelled = true }
+  }, [selectedCategory])
+
+  if (!questions) return null
+
+  return (
+    <Quiz
+      questions={questions}
+      category={selectedCategory}
+      onQuizComplete={onQuizComplete}
+    />
+  )
+}
