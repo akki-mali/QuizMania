@@ -1,7 +1,6 @@
 {
   "name": "quizmania",
   "version": "1.0.0",
-  "main": "yes",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
